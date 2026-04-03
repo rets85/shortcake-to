@@ -1,10 +1,14 @@
 import { auth } from "@/lib/auth";
 import { NextResponse } from "next/server";
 
+interface UserWithSubscription {
+  subscriptionStatus?: string;
+}
+
 export default auth((req) => {
   const { pathname } = req.nextUrl;
   const isAuth = !!req.auth;
-  const user = req.auth?.user as any;
+  const user = req.auth?.user as UserWithSubscription | undefined;
 
   // Redirect authenticated users away from auth pages
   const authPaths = ["/login", "/signup"];

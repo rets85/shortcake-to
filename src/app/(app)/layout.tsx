@@ -1,7 +1,6 @@
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import AppSidebar from "@/components/layout/AppSidebar";
-import AppTopBar from "@/components/layout/AppTopBar";
 import MobileBottomNav from "@/components/layout/MobileBottomNav";
 
 export default async function AppLayout({
