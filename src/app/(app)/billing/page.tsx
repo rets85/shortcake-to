@@ -1,12 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useSession } from "next-auth/react";
 import Toast from "@/components/ui/Toast";
 
+interface UserWithSubscription {
+  subscriptionStatus?: string;
+  subscriptionEnd?: string;
+}
+
 export default function BillingPage() {
-  const router = useRouter();
   const { data: session } = useSession();
   const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState<{
@@ -14,7 +17,7 @@ export default function BillingPage() {
     type: "success" | "error";
   } | null>(null);
 
-  const user = session?.user as any;
+  const user = session?.user as UserWithSubscription | undefined;
   const hasActiveSubscription = user?.subscriptionStatus === "active";
 
   const handleCheckout = async () => {

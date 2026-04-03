@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
 import Toast from "@/components/ui/Toast";
 import {
   ClipboardDocumentIcon,
@@ -22,7 +21,6 @@ interface Link {
 }
 
 export default function DashboardPage() {
-  const router = useRouter();
   const [links, setLinks] = useState<Link[]>([]);
   const [loading, setLoading] = useState(true);
   const [creating, setCreating] = useState(false);
@@ -41,11 +39,7 @@ export default function DashboardPage() {
   const [editEnabled, setEditEnabled] = useState(true);
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
 
-  useEffect(() => {
-    fetchLinks();
-  }, []);
-
-  const fetchLinks = async () => {
+  const fetchLinks = useCallback(async () => {
     try {
       const res = await fetch("/api/links");
       if (!res.ok) throw new Error("Failed to fetch links");
@@ -56,7 +50,11 @@ export default function DashboardPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    fetchLinks();
+  }, [fetchLinks]);
 
   const showToast = (message: string, type: "success" | "error" = "success") => {
     setToast({ message, type });

@@ -32,14 +32,15 @@ export async function POST(req: NextRequest) {
             ? subscription.customer
             : subscription.customer.id;
 
+        // current_period_end is still returned by the API but removed from Stripe v22+ types
+        const periodEnd = (subscription as unknown as { current_period_end: number }).current_period_end;
+
         await prisma.user.update({
           where: { stripeCustomerId: customerId },
           data: {
             stripeSubscriptionId: subscription.id,
             subscriptionStatus: subscription.status,
-            subscriptionEnd: new Date(
-              subscription.current_period_end * 1000
-            ),
+            subscriptionEnd: new Date(periodEnd * 1000),
           },
         });
         break;
