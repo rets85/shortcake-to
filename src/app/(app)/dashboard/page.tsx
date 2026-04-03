@@ -56,7 +56,10 @@ export default function DashboardPage() {
     fetchLinks();
   }, [fetchLinks]);
 
-  const showToast = (message: string, type: "success" | "error" = "success") => {
+  const showToast = (
+    message: string,
+    type: "success" | "error" = "success"
+  ) => {
     setToast({ message, type });
   };
 
@@ -161,24 +164,26 @@ export default function DashboardPage() {
   return (
     <>
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-slate-900">Your Links</h1>
-        <p className="text-sm text-slate-500 mt-1">
+        <h1 className="font-display text-2xl font-bold text-white">
+          Your Links
+        </h1>
+        <p className="text-sm text-slate-400 mt-1">
           Manage and track all your short links.
         </p>
       </div>
 
       {/* Create Panel */}
       {panelOpen && (
-        <div className="bg-white border border-slate-100 rounded-xl shadow-sm p-5 mb-6 animate-in fade-in duration-200">
-          <h2 className="text-base font-semibold text-slate-900 mb-4">
+        <div className="bg-[#0F0F1A] border border-[#1E1E3A] rounded-2xl p-6 mb-6 animate-fade-in">
+          <h2 className="font-display text-base font-bold text-white mb-4">
             Create a new link
           </h2>
           {error && (
-            <p className="text-sm text-red-500 mb-4 text-center">{error}</p>
+            <p className="text-sm text-rose-500 mb-4 text-center">{error}</p>
           )}
           <div className="space-y-3">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">
+              <label className="block text-xs font-medium text-slate-400 mb-1.5">
                 Destination URL
               </label>
               <input
@@ -186,17 +191,17 @@ export default function DashboardPage() {
                 placeholder="https://your-long-url.com/goes/here"
                 value={destination}
                 onChange={(e) => setDestination(e.target.value)}
-                className="border border-slate-200 rounded-lg px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-rose-400 focus:border-transparent w-full transition"
+                className="bg-[#08080F] border border-[#1E1E3A] focus:border-violet-500 rounded-lg px-4 py-3 text-sm text-slate-100 placeholder-slate-600 focus:outline-none focus:ring-1 focus:ring-violet-500/50 transition-all w-full"
                 required
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">
+              <label className="block text-xs font-medium text-slate-400 mb-1.5">
                 Custom slug{" "}
-                <span className="text-slate-400 font-normal">(optional)</span>
+                <span className="text-slate-600 font-normal">(optional)</span>
               </label>
-              <div className="flex items-center gap-0">
-                <span className="border border-r-0 border-slate-200 rounded-l-lg bg-slate-50 px-3 py-2.5 text-sm text-slate-500 whitespace-nowrap">
+              <div className="flex items-center bg-[#08080F] border border-[#1E1E3A] focus-within:border-violet-500 rounded-lg overflow-hidden transition-all focus-within:ring-1 focus-within:ring-violet-500/50">
+                <span className="px-3 py-3 text-sm text-slate-600 border-r border-[#1E1E3A] shrink-0">
                   shortcake.to/
                 </span>
                 <input
@@ -204,10 +209,10 @@ export default function DashboardPage() {
                   placeholder="leave blank for auto"
                   value={customSlug}
                   onChange={(e) => setCustomSlug(e.target.value)}
-                  className="border border-slate-200 rounded-r-lg px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-rose-400 flex-1"
+                  className="bg-transparent flex-1 px-3 py-3 text-sm text-slate-100 placeholder-slate-600 focus:outline-none font-mono"
                 />
               </div>
-              <p className="text-xs text-slate-400 mt-1">
+              <p className="text-xs text-slate-500 mt-1">
                 Letters, numbers, and hyphens only.
               </p>
             </div>
@@ -215,7 +220,7 @@ export default function DashboardPage() {
               <button
                 onClick={handleCreateLink}
                 disabled={creating || !destination}
-                className="bg-rose-500 hover:bg-rose-600 text-white font-semibold px-5 py-2.5 rounded-lg transition-colors text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                className="bg-violet-600 hover:bg-violet-500 text-white font-semibold px-5 py-2.5 rounded-lg transition-all duration-200 text-sm shadow-[0_0_20px_rgba(124,58,237,0.4)] hover:shadow-[0_0_30px_rgba(124,58,237,0.6)] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {creating ? "Creating..." : "Shorten"}
               </button>
@@ -224,7 +229,7 @@ export default function DashboardPage() {
                   setPanelOpen(false);
                   setError("");
                 }}
-                className="text-sm text-slate-500 hover:text-slate-700 transition-colors"
+                className="text-sm text-slate-500 hover:text-white transition-colors"
               >
                 Cancel
               </button>
@@ -235,129 +240,114 @@ export default function DashboardPage() {
 
       {/* Links List */}
       {loading ? (
-        <div className="space-y-2">
+        <div className="space-y-3">
           {[...Array(3)].map((_, i) => (
             <div
               key={i}
-              className="bg-white border border-slate-100 rounded-xl p-4 animate-pulse"
+              className="bg-[#0F0F1A] border border-[#1E1E3A] rounded-2xl p-4 animate-pulse"
             >
-              <div className="h-4 bg-slate-200 rounded w-1/3"></div>
+              <div className="h-4 bg-[#1E1E3A] rounded w-1/3"></div>
             </div>
           ))}
         </div>
       ) : links.length === 0 ? (
-        <div className="bg-white border border-slate-100 rounded-xl shadow-sm p-16 text-center">
-          <div className="text-6xl mb-4">🍓</div>
-          <h3 className="text-lg font-semibold text-slate-900 mb-2">
+        <div className="flex flex-col items-center justify-center py-32 text-center">
+          <div className="relative mb-6">
+            <div className="absolute inset-0 bg-violet-600/20 rounded-full blur-2xl scale-150" />
+            <div className="relative w-16 h-16 bg-[#0F0F1A] border border-[#1E1E3A] rounded-2xl flex items-center justify-center text-2xl">
+              🔗
+            </div>
+          </div>
+          <h3 className="font-display text-lg font-bold text-white mb-2">
             No links yet
           </h3>
-          <p className="text-sm text-slate-500 mb-6">
-            Create your first short link and start tracking clicks.
+          <p className="text-sm text-slate-500 mb-6 max-w-xs">
+            Create your first short link to get started.
           </p>
           <button
             onClick={() => setPanelOpen(true)}
-            className="bg-rose-500 hover:bg-rose-600 text-white font-semibold px-5 py-2.5 rounded-lg transition-colors"
+            className="bg-violet-600 hover:bg-violet-500 text-white font-semibold px-5 py-2.5 rounded-lg transition-all duration-200 shadow-[0_0_20px_rgba(124,58,237,0.4)] hover:shadow-[0_0_30px_rgba(124,58,237,0.6)] flex items-center gap-2 active:scale-[0.98]"
           >
-            Create your first link
+            <span className="text-lg leading-none">+</span>
+            Create link
           </button>
         </div>
       ) : (
-        <div className="bg-white border border-slate-100 rounded-xl shadow-sm overflow-hidden">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-slate-100 text-xs text-slate-500 uppercase tracking-wider">
-                <th className="text-left px-5 py-3 font-medium">Short URL</th>
-                <th className="text-left px-5 py-3 font-medium hidden md:table-cell">
-                  Destination
-                </th>
-                <th className="text-left px-5 py-3 font-medium">Clicks</th>
-                <th className="text-left px-5 py-3 font-medium hidden sm:table-cell">
-                  Created
-                </th>
-                <th className="px-5 py-3"></th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-50">
-              {links.map((link) => (
-                <tr
-                  key={link.id}
-                  className="hover:bg-slate-50 transition-colors group"
-                >
-                  <td className="px-5 py-4">
-                    <div className="flex items-center gap-2">
-                      <a
-                        href={`${process.env.NEXT_PUBLIC_APP_URL || "https://shortcake.to"}/${link.slug}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="font-medium text-rose-500 hover:text-rose-600 transition-colors"
-                      >
-                        shortcake.to/{link.slug}
-                      </a>
-                      <button
-                        onClick={() => handleCopy(link.slug)}
-                        className="text-slate-300 hover:text-rose-500 transition-colors opacity-0 group-hover:opacity-100"
-                        title="Copy to clipboard"
-                      >
-                        {copiedSlug === link.slug ? (
-                          <CheckIcon className="w-4 h-4 text-emerald-500" />
-                        ) : (
-                          <ClipboardDocumentIcon className="w-4 h-4" />
-                        )}
-                      </button>
-                    </div>
-                  </td>
-                  <td className="px-5 py-4 hidden md:table-cell">
-                    <span
-                      className="text-slate-500 max-w-[200px] truncate block"
-                      title={link.destination}
-                    >
-                      {link.destination}
-                    </span>
-                  </td>
-                  <td className="px-5 py-4">
-                    <span className="bg-rose-50 text-rose-600 text-xs font-medium px-2 py-0.5 rounded-full">
-                      {link.clicks}
-                    </span>
-                  </td>
-                  <td className="px-5 py-4 hidden sm:table-cell">
-                    <span className="text-slate-400 text-xs">
-                      {new Date(link.createdAt).toLocaleDateString()}
-                    </span>
-                  </td>
-                  <td className="px-5 py-4 text-right">
-                    <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <button
-                        onClick={() => openEdit(link)}
-                        className="text-slate-400 hover:text-slate-700 transition-colors p-1 rounded"
-                        title="Edit"
-                      >
-                        <PencilIcon className="w-4 h-4" />
-                      </button>
-                      <button
-                        onClick={() => setDeleteConfirm(link.id)}
-                        className="text-slate-400 hover:text-red-500 transition-colors p-1 rounded"
-                        title="Delete"
-                      >
-                        <TrashIcon className="w-4 h-4" />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className="space-y-3">
+          {links.map((link) => (
+            <div
+              key={link.id}
+              className="group bg-[#0F0F1A] border border-[#1E1E3A] hover:border-[#2D2D5A] rounded-2xl p-4 transition-all duration-200 flex items-center gap-4"
+            >
+              {/* Left: short URL */}
+              <div className="min-w-0 flex-1">
+                <div className="font-mono text-cyan-400 text-sm flex items-center gap-2">
+                  <a
+                    href={`${process.env.NEXT_PUBLIC_APP_URL || "https://shortcake.to"}/${link.slug}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:underline"
+                  >
+                    shortcake.to/{link.slug}
+                  </a>
+                  <button
+                    onClick={() => handleCopy(link.slug)}
+                    className="text-slate-600 hover:text-cyan-400 transition-colors opacity-0 group-hover:opacity-100"
+                    title="Copy to clipboard"
+                  >
+                    {copiedSlug === link.slug ? (
+                      <CheckIcon className="w-4 h-4 text-emerald-500" />
+                    ) : (
+                      <ClipboardDocumentIcon className="w-4 h-4" />
+                    )}
+                  </button>
+                </div>
+                <p className="text-xs text-slate-500 mt-1 truncate max-w-xs">
+                  {link.destination}
+                </p>
+              </div>
+
+              {/* Right: stats + actions */}
+              <div className="flex items-center gap-4 shrink-0">
+                <span className="bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 text-xs font-medium px-2.5 py-0.5 rounded-full font-mono">
+                  {link.clicks.toLocaleString()} clicks
+                </span>
+                <span className="text-xs text-slate-600 hidden sm:block">
+                  {new Date(link.createdAt).toLocaleDateString()}
+                </span>
+                <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <button
+                    onClick={() => openEdit(link)}
+                    className="p-1.5 text-slate-500 hover:text-white hover:bg-white/10 rounded-md transition-colors"
+                    title="Edit"
+                  >
+                    <PencilIcon className="w-4 h-4" />
+                  </button>
+                  <button
+                    onClick={() => setDeleteConfirm(link.id)}
+                    className="p-1.5 text-slate-500 hover:text-rose-400 hover:bg-rose-500/10 rounded-md transition-colors"
+                    title="Delete"
+                  >
+                    <TrashIcon className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       )}
 
       {/* Edit Modal */}
       {editingId && (
-        <div className="fixed inset-0 bg-black/30 backdrop-blur-[2px] z-40 flex items-center justify-center px-4">
-          <div className="bg-white rounded-xl shadow-xl w-full max-w-md p-6 z-50 animate-in fade-in scale-95 duration-150">
-            <div className="flex items-center justify-between mb-5">
-              <h2 className="text-lg font-semibold text-slate-900">Edit link</h2>
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center px-4 animate-fade-in">
+          <div className="bg-[#0F0F1A] border border-[#1E1E3A] rounded-2xl p-8 shadow-[0_0_60px_rgba(0,0,0,0.5)] w-full max-w-md animate-slide-up">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="font-display text-xl font-bold text-white">
+                Edit link
+              </h2>
               <button
                 onClick={() => setEditingId(null)}
-                className="text-slate-400 hover:text-slate-600 transition-colors text-2xl leading-none"
+                className="text-slate-500 hover:text-white transition-colors p-1 text-2xl leading-none"
               >
                 ×
               </button>
@@ -365,47 +355,47 @@ export default function DashboardPage() {
 
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">
+                <label className="block text-xs font-medium text-slate-400 mb-1.5">
                   Destination URL
                 </label>
                 <input
                   type="url"
                   value={editDest}
                   onChange={(e) => setEditDest(e.target.value)}
-                  className="border border-slate-200 rounded-lg px-3 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-rose-400 w-full"
+                  className="bg-[#08080F] border border-[#1E1E3A] focus:border-violet-500 rounded-lg px-4 py-3 text-sm text-slate-100 focus:outline-none focus:ring-1 focus:ring-violet-500/50 transition-all w-full"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">
+                <label className="block text-xs font-medium text-slate-400 mb-1.5">
                   Slug
                 </label>
-                <div className="flex items-center">
-                  <span className="border border-r-0 border-slate-200 rounded-l-lg bg-slate-50 px-3 py-2.5 text-sm text-slate-500">
+                <div className="flex items-center bg-[#08080F] border border-[#1E1E3A] focus-within:border-violet-500 rounded-lg overflow-hidden transition-all focus-within:ring-1 focus-within:ring-violet-500/50">
+                  <span className="px-3 py-3 text-sm text-slate-600 border-r border-[#1E1E3A] shrink-0">
                     shortcake.to/
                   </span>
                   <input
                     type="text"
                     value={editSlug}
                     onChange={(e) => setEditSlug(e.target.value)}
-                    className="border border-slate-200 rounded-r-lg px-3 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-rose-400 flex-1"
+                    className="bg-transparent flex-1 px-3 py-3 text-sm text-slate-100 focus:outline-none font-mono"
                   />
                 </div>
               </div>
 
               <div className="flex items-center justify-between py-1">
                 <div>
-                  <p className="text-sm font-medium text-slate-700">
+                  <p className="text-sm font-medium text-slate-300">
                     Link enabled
                   </p>
-                  <p className="text-xs text-slate-400">
+                  <p className="text-xs text-slate-500">
                     Disabled links return a 404.
                   </p>
                 </div>
                 <button
                   onClick={() => setEditEnabled(!editEnabled)}
-                  className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-rose-400 focus:ring-offset-1 ${
-                    editEnabled ? "bg-rose-500" : "bg-slate-200"
+                  className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-1 focus:ring-offset-[#0F0F1A] ${
+                    editEnabled ? "bg-violet-600" : "bg-[#1E1E3A]"
                   }`}
                 >
                   <span
@@ -416,19 +406,20 @@ export default function DashboardPage() {
                 </button>
               </div>
 
-              <div className="bg-slate-50 rounded-lg px-4 py-3 flex items-center justify-between">
+              <div className="bg-[#08080F] border border-[#1E1E3A] rounded-lg px-4 py-3 flex items-center justify-between">
                 <div>
                   <p className="text-xs text-slate-500">Total clicks</p>
-                  <p className="text-lg font-bold text-slate-900">
+                  <p className="text-lg font-bold text-white font-mono">
                     {links.find((l) => l.id === editingId)?.clicks || 0}
                   </p>
                 </div>
                 <div className="text-right">
                   <p className="text-xs text-slate-500">Last clicked</p>
-                  <p className="text-sm font-medium text-slate-700">
+                  <p className="text-sm font-medium text-slate-300">
                     {links.find((l) => l.id === editingId)?.lastClickAt
                       ? new Date(
-                          links.find((l) => l.id === editingId)?.lastClickAt || ""
+                          links.find((l) => l.id === editingId)
+                            ?.lastClickAt || ""
                         ).toLocaleString()
                       : "Never"}
                   </p>
@@ -436,10 +427,10 @@ export default function DashboardPage() {
               </div>
             </div>
 
-            <div className="flex items-center justify-between mt-6 pt-5 border-t border-slate-100">
+            <div className="flex items-center justify-between mt-6 pt-5 border-t border-[#1E1E3A]">
               <button
                 onClick={() => setDeleteConfirm(editingId)}
-                className="border border-red-200 hover:bg-red-50 text-red-600 text-sm font-medium px-4 py-2 rounded-lg transition-colors"
+                className="border border-rose-500/30 hover:bg-rose-500/10 text-rose-400 text-sm font-medium px-4 py-2 rounded-lg transition-colors"
               >
                 Delete link
               </button>
@@ -447,14 +438,14 @@ export default function DashboardPage() {
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setEditingId(null)}
-                  className="border border-slate-200 hover:bg-slate-50 text-slate-700 text-sm font-medium px-4 py-2 rounded-lg transition-colors"
+                  className="border border-[#2D2D5A] hover:border-violet-500 bg-transparent text-slate-300 hover:text-white font-medium px-4 py-2 rounded-lg transition-all duration-200 text-sm"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={handleSaveEdit}
                   disabled={creating}
-                  className="bg-rose-500 hover:bg-rose-600 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors disabled:opacity-50"
+                  className="bg-violet-600 hover:bg-violet-500 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-all duration-200 shadow-[0_0_20px_rgba(124,58,237,0.4)] hover:shadow-[0_0_30px_rgba(124,58,237,0.6)] disabled:opacity-50"
                 >
                   {creating ? "Saving..." : "Save changes"}
                 </button>
@@ -466,14 +457,14 @@ export default function DashboardPage() {
 
       {/* Delete Confirmation Modal */}
       {deleteConfirm && (
-        <div className="fixed inset-0 bg-black/30 backdrop-blur-[2px] z-40 flex items-center justify-center px-4">
-          <div className="bg-white rounded-xl shadow-xl w-full max-w-md p-6 z-50 animate-in fade-in scale-95 duration-150 text-center py-8">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center px-4 animate-fade-in">
+          <div className="bg-[#0F0F1A] border border-[#1E1E3A] rounded-2xl p-8 shadow-[0_0_60px_rgba(0,0,0,0.5)] w-full max-w-md animate-slide-up text-center">
             <div className="text-4xl mb-3">⚠️</div>
-            <h3 className="text-lg font-semibold text-slate-900 mb-2">
+            <h3 className="font-display text-lg font-bold text-white mb-2">
               Delete this link?
             </h3>
-            <p className="text-sm text-slate-500 mb-6">
-              <strong>
+            <p className="text-sm text-slate-400 mb-6">
+              <strong className="text-white">
                 shortcake.to/
                 {links.find((l) => l.id === deleteConfirm)?.slug}
               </strong>{" "}
@@ -482,14 +473,14 @@ export default function DashboardPage() {
             <div className="flex items-center justify-center gap-3">
               <button
                 onClick={() => setDeleteConfirm(null)}
-                className="border border-slate-200 hover:bg-slate-50 text-slate-700 font-medium px-5 py-2.5 rounded-lg transition-colors"
+                className="border border-[#2D2D5A] hover:border-violet-500 bg-transparent text-slate-300 hover:text-white font-medium px-5 py-2.5 rounded-lg transition-all duration-200"
               >
                 Keep it
               </button>
               <button
                 onClick={handleDelete}
                 disabled={creating}
-                className="bg-red-500 hover:bg-red-600 text-white font-semibold px-5 py-2.5 rounded-lg transition-colors disabled:opacity-50"
+                className="bg-rose-600 hover:bg-rose-500 text-white font-semibold px-5 py-2.5 rounded-lg transition-colors disabled:opacity-50"
               >
                 {creating ? "Deleting..." : "Yes, delete it"}
               </button>
@@ -498,12 +489,12 @@ export default function DashboardPage() {
         </div>
       )}
 
-      {/* Top Action Bar */}
+      {/* Floating Action Button */}
       {!panelOpen && links.length > 0 && (
         <div className="fixed bottom-6 right-6 md:bottom-auto md:top-6 md:right-6 z-30">
           <button
             onClick={() => setPanelOpen(true)}
-            className="bg-rose-500 hover:bg-rose-600 text-white font-semibold px-4 py-2.5 rounded-lg transition-colors flex items-center gap-1.5 shadow-lg"
+            className="bg-violet-600 hover:bg-violet-500 text-white font-semibold px-4 py-2.5 rounded-lg transition-all duration-200 flex items-center gap-1.5 shadow-glow hover:shadow-[0_0_30px_rgba(124,58,237,0.6)]"
           >
             <PlusIcon className="w-4 h-4" /> New Link
           </button>

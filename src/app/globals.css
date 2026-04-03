@@ -1,28 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  * {
-    @apply border-slate-100;
-  }
+/* ─── Base ─────────────────────────────────────── */
+body {
+  background-color: #08080F;
+  color: #F8FAFC;
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
-  body {
-    @apply font-sans antialiased;
-  }
+/* ─── Grid background ───────────────────────────── */
+.bg-grid {
+  background-image:
+    linear-gradient(#1E1E3A 1px, transparent 1px),
+    linear-gradient(90deg, #1E1E3A 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-color: #08080F;
+}
 
-  ::-webkit-scrollbar {
-    width: 6px;
-  }
-  ::-webkit-scrollbar-track {
-    @apply bg-transparent;
-  }
-  ::-webkit-scrollbar-thumb {
-    @apply bg-slate-200 rounded-full;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    @apply bg-slate-300;
-  }
+/* ─── Glow text ─────────────────────────────────── */
+.text-glow {
+  text-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+}
+
+/* ─── Gradient text ─────────────────────────────── */
+.text-gradient {
+  background: linear-gradient(135deg, #8B5CF6 0%, #06B6D4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Scrollbar ─────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #08080F;
+}
+::-webkit-scrollbar-thumb {
+  background: #1E1E3A;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2D2D5A;
+}
+
+/* ─── Selection ─────────────────────────────────── */
+::selection {
+  background: rgba(124, 58, 237, 0.3);
+  color: #F8FAFC;
 }
 
 @layer utilities {

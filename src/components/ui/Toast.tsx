@@ -8,7 +8,11 @@ interface ToastProps {
   onDismiss: () => void;
 }
 
-export default function Toast({ message, type = "success", onDismiss }: ToastProps) {
+export default function Toast({
+  message,
+  type = "success",
+  onDismiss,
+}: ToastProps) {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
@@ -25,11 +29,15 @@ export default function Toast({ message, type = "success", onDismiss }: ToastPro
         visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
       }`}
     >
-      <div className="bg-white border border-slate-200 rounded-xl shadow-lg px-4 py-3 flex items-center gap-3 min-w-[260px]">
-        <span className={type === "success" ? "text-emerald-500" : "text-red-500"}>
+      <div className="bg-[#0F0F1A] border border-[#1E1E3A] rounded-xl shadow-[0_0_40px_rgba(0,0,0,0.5)] px-4 py-3 flex items-center gap-3 min-w-[260px]">
+        <span
+          className={
+            type === "success" ? "text-emerald-400" : "text-rose-400"
+          }
+        >
           {type === "success" ? "✓" : "✕"}
         </span>
-        <p className="text-sm font-medium text-slate-900">{message}</p>
+        <p className="text-sm font-medium text-slate-100">{message}</p>
       </div>
     </div>
   );
