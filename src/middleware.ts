@@ -18,7 +18,15 @@ export default auth((req) => {
     return NextResponse.redirect(new URL("/dashboard", req.url));
   }
 
-  // Check subscription status for dashboard access
+  // Redirect unauthenticated users away from protected pages
+  const protectedPaths = ["/dashboard", "/billing"];
+  const isProtected = protectedPaths.some((p) => pathname.startsWith(p));
+
+  if (isProtected && !isAuth) {
+    return NextResponse.redirect(new URL("/login", req.url));
+  }
+
+  // Check subscription status for dashboard access (authenticated but no active sub)
   if (pathname.startsWith("/dashboard") && isAuth) {
     if (user?.subscriptionStatus !== "active") {
       return NextResponse.redirect(new URL("/billing", req.url));
