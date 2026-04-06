@@ -339,7 +339,7 @@ export default function DashboardPage() {
 
       {/* Edit Modal */}
       {editingId && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center px-4 animate-fade-in">
+        <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center px-4 animate-fade-in">
           <div className="bg-[#0F0F1A] border border-[#1E1E3A] rounded-2xl p-8 shadow-[0_0_60px_rgba(0,0,0,0.5)] w-full max-w-md animate-slide-up">
             <div className="flex items-center justify-between mb-6">
               <h2 className="font-display text-xl font-bold text-white">
@@ -457,7 +457,7 @@ export default function DashboardPage() {
 
       {/* Delete Confirmation Modal */}
       {deleteConfirm && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center px-4 animate-fade-in">
+        <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center px-4 animate-fade-in">
           <div className="bg-[#0F0F1A] border border-[#1E1E3A] rounded-2xl p-8 shadow-[0_0_60px_rgba(0,0,0,0.5)] w-full max-w-md animate-slide-up text-center">
             <div className="text-4xl mb-3">⚠️</div>
             <h3 className="font-display text-lg font-bold text-white mb-2">

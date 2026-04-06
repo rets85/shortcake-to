@@ -7,7 +7,7 @@ export default function MarketingLayout({
 }) {
   return (
     <div className="min-h-screen flex flex-col bg-[#08080F]">
-      <nav className="border-b border-[#1E1E3A] bg-[#08080F]/80 backdrop-blur-md h-14 sticky top-0 z-50">
+      <nav className="border-b border-[#1E1E3A] bg-[#08080F] h-14 sticky top-0 z-50">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-full flex items-center justify-between">
           <MarketingNav />
         </div>
