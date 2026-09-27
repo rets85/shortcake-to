@@ -192,7 +192,7 @@ export default function LandingPage() {
             Your links, faster than fast
           </h2>
           <p className="text-slate-400 max-w-xl mx-auto mb-12 leading-relaxed">
-            Shortcake runs on edge middleware — your visitors never wait. Links
+            Shortcake runs on edge middleware, so your visitors never wait. Links
             redirect in under 50ms, anywhere in the world.
           </p>
 
